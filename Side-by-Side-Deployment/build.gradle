@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+}
+
+group 'aug.bueno'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+subprojects {
+
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+
+    sourceSets {
+        main {
+            java {
+                srcDir 'src'
+            }
+        }
+
+        test {
+            java {
+                srcDir 'test/src'
+            }
+        }
+    }
+}
+
+
+project(':Camera') {
+
+    dependencies {
+
+        implementation project(':CameraLib')
+
+        implementation "com.fasterxml.jackson.core:jackson-core:2.4.2"
+        implementation "com.fasterxml.jackson.core:jackson-annotations:2.4.2"
+        implementation "com.fasterxml.jackson.core:jackson-databind:2.4.2"
+        implementation "javax.json:javax.json-api:1.0"
+    }
+
+    repositories {
+        flatDir {
+            dirs("lib")
+        }
+    }
+
+    sourceSets {
+        main {
+            java {
+                outputDir = file('../out/aug/bueno/production/Camera')
+            }
+        }
+    }
+}
+
+project(":CameraLib") {
+    dependencies {
+    }
+
+//    jar {
+//        destinationDirectory = file('../out/artifacts/implementations_jar')
+//        archiveBaseName = 'aug_implementations'
+//    }
+//
+//
+//    sourceSets {
+//        main {
+//            java {
+//                outputDir = file('../out/bueno/aug/production/CameraLib')
+//            }
+//        }
+//    }
+
+}
